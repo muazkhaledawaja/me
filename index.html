@@ -4,6 +4,46 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Moath K. Awaja — Backend Developer</title>
+<meta name="description" content="Moath K. Awaja is a backend developer based in Cairo, Egypt, specializing in Node.js, TypeScript, NestJS, and scalable API design. Available for work." />
+<meta name="author" content="Moath K. Awaja" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://moathawaja.com/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 200 280' xmlns='http://www.w3.org/2000/svg'><path d='M 60 130 Q 70 110 90 80 Q 110 50 115 30 Q 120 18 110 22 Q 95 32 90 60 Q 87 90 95 115 Q 110 145 130 130 Q 145 122 140 135 L 100 250' fill='none' stroke='%23b8743d' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://moathawaja.com/" />
+<meta property="og:title" content="Moath K. Awaja — Backend Developer" />
+<meta property="og:description" content="Backend developer based in Cairo, Egypt. Specializing in Node.js, TypeScript, NestJS, and scalable API architecture. Available for work." />
+<meta property="og:image" content="https://moathawaja.com/og-image.jpg" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Moath K. Awaja — Backend Developer" />
+<meta name="twitter:description" content="Backend developer based in Cairo, Egypt. Specializing in Node.js, TypeScript, NestJS, and scalable API architecture." />
+<meta name="twitter:image" content="https://moathawaja.com/og-image.jpg" />
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Moath K. Awaja",
+  "url": "https://moathawaja.com",
+  "jobTitle": "Backend Developer",
+  "description": "Backend developer specializing in Node.js, TypeScript, NestJS, and scalable API design.",
+  "email": "mkaawaja5000@gmail.com",
+  "telephone": "+201062691675",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "New Cairo",
+    "addressCountry": "EG"
+  },
+  "knowsAbout": ["Node.js", "TypeScript", "NestJS", "PostgreSQL", "MongoDB", "Docker", "REST APIs", "Next.js"]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -71,27 +111,48 @@
   }
 
   .logo {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    color: var(--text);
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    color: var(--text);
   }
 
-  .logo-dot {
-    width: 8px; height: 8px;
+  .logo-mark {
+    width: 22px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 28px;
     background: var(--warm);
-    border-radius: 50%;
-    animation: emberPulse 2.5s ease-in-out infinite;
+    opacity: 0.4;
+    flex-shrink: 0;
   }
 
-  @keyframes emberPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
+  .logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .logo-name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  .logo-role {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm);
+    line-height: 1;
   }
 
   .nav-links {
@@ -875,9 +936,16 @@
 
 <!-- ============ NAV ============ -->
 <nav>
-  <a href="#" class="logo">
-    <span class="logo-dot"></span>
-    MOATH.AWAJA
+  <a href="#" class="logo" aria-label="Moath K. Awaja — Backend Developer">
+    <svg class="logo-mark" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M 60 130 Q 70 110 90 80 Q 110 50 115 30 Q 120 18 110 22 Q 95 32 90 60 Q 87 90 95 115 Q 110 145 130 130 Q 145 122 140 135 L 100 250"
+            fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="logo-divider" aria-hidden="true"></span>
+    <span class="logo-wordmark">
+      <span class="logo-name">Moath</span>
+      <span class="logo-role">Backend Dev</span>
+    </span>
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
