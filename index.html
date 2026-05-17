@@ -188,8 +188,85 @@
 
   .nav-cta:hover { background: var(--warm); }
 
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 60;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--text);
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(223, 223, 223, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 5rem 6vw 3rem;
+    z-index: 45;
+    flex-direction: column;
+    gap: 0;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+  }
+
+  .mobile-menu a {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.3s ease;
+  }
+
+  .mobile-menu a:hover { color: var(--warm); }
+
+  .mobile-menu .mobile-cta {
+    margin-top: 2rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--text);
+    padding: 0.9rem 1.5rem;
+    text-align: center;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    border-bottom: none;
+  }
+
+  .mobile-menu .mobile-cta:hover { background: var(--warm); }
+
   @media (max-width: 768px) {
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .nav-cta { display: none; }
   }
 
   /* ==================== HERO — The Robot Stage ==================== */
@@ -377,9 +454,20 @@
   }
 
   @media (max-width: 900px) {
-    .hero-content { grid-template-columns: 1fr; padding: 5rem 6vw 2rem; }
+    .hero-content {
+      grid-template-columns: 1fr;
+      padding: 0 6vw;
+      align-items: flex-end;
+      padding-bottom: 9rem;
+    }
+    .hero-left {
+      background: linear-gradient(to top, rgba(223,223,223,0.92) 70%, transparent 100%);
+      padding: 2rem 1.5rem 1rem;
+      border-radius: 4px;
+    }
     .hero-right { display: none; }
     .hero-title { font-size: clamp(2.5rem, 12vw, 5rem); }
+    .robot-stage iframe { pointer-events: none; }
   }
 
   /* ==================== SECTION SHELL ==================== */
@@ -602,7 +690,7 @@
 
   .project {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
     gap: 3rem;
     padding: 3rem 0;
     border-top: 1px solid var(--line);
@@ -674,20 +762,7 @@
     color: var(--warm);
   }
 
-  .project-link {
-    font-family: var(--mono);
-    font-size: 1.5rem;
-    color: var(--text-faint);
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .project:hover .project-link {
-    color: var(--warm);
-    transform: translateX(8px) rotate(-45deg);
-  }
-
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .project { grid-template-columns: 1fr; gap: 0.75rem; }
   }
 
@@ -954,7 +1029,18 @@
     <li><a href="#experience">Experience</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get in touch</a>
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#skills" class="mobile-link">Skills</a>
+  <a href="#experience" class="mobile-link">Experience</a>
+  <a href="#contact" class="mobile-cta">Get in touch</a>
+</div>
 
 <!-- ============ HERO — THE STAGE ============ -->
 <section class="hero">
@@ -1047,7 +1133,6 @@
             <span>Node.js</span><span>Express</span><span>TypeScript</span><span>PostgreSQL</span><span>Redis</span><span>Next.js 15</span><span>GCP Cloud Run</span><span>Vercel</span>
           </div>
         </div>
-        <span class="project-link" aria-hidden="true">↗</span>
       </div>
 
       <div class="project">
@@ -1059,7 +1144,6 @@
             <span>NestJS</span><span>React</span><span>TypeScript</span><span>Supabase</span><span>Docker</span><span>Resend</span>
           </div>
         </div>
-        <span class="project-link" aria-hidden="true">↗</span>
       </div>
 
       <div class="project">
@@ -1071,19 +1155,17 @@
             <span>TypeScript</span><span>React</span><span>Excel/PDF parsing</span><span>Client-side PDF</span>
           </div>
         </div>
-        <span class="project-link" aria-hidden="true">↗</span>
       </div>
 
       <div class="project">
         <span class="project-num">04</span>
         <div class="project-info">
           <h3>Personal Portfolio Website</h3>
-          <p>This site. Fully responsive, built with Next.js App Router for SSR and SEO, deployed on Vercel with CI/CD integration.</p>
+          <p>This site. A single-page portfolio built with plain HTML, CSS, and vanilla JS — focused on fast load, clean design, and zero dependencies.</p>
           <div class="project-stack">
-            <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span>
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
           </div>
         </div>
-        <span class="project-link" aria-hidden="true">↗</span>
       </div>
     </div>
   </div>
@@ -1277,7 +1359,6 @@
     <a href="https://wa.me/201113284111" target="_blank" rel="noopener noreferrer">+20 111 328 4111</a>
     <a href="https://github.com/muazkhaledawaja" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="https://www.linkedin.com/in/moath-awaja/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a href="#" target="_blank">Resume</a>
   </div>
 </section>
 
@@ -1293,13 +1374,30 @@
         entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.section').forEach(s => {
     s.style.opacity = '0';
     s.style.transform = 'translateY(40px)';
     s.style.transition = 'opacity 1s ease, transform 1s ease';
     observer.observe(s);
+  });
+
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
   });
 </script>
 
