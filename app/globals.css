@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------- */
+/* Design tokens — see plan §2. Static ramps first, semantic indirection   */
+/* second (so `data-scheme="dark"` on any subtree inverts its children      */
+/* with zero `dark:` variants).                                            */
+/* ---------------------------------------------------------------------- */
+
+@theme {
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "SFMono-Regular", Consolas, monospace;
+
+  /* accent ramp — warm terracotta, continuity with the signature mark */
+  --color-accent-50: #fbf3ec;
+  --color-accent-100: #f5e3d2;
+  --color-accent-200: #ebc7a7;
+  --color-accent-300: #e0a97c;
+  --color-accent-400: #d89760;
+  --color-accent-500: #d4884a;
+  --color-accent-600: #b8743d; /* brand hex — >=24px text, borders, marks only */
+  --color-accent-700: #a9642f; /* body-text-safe minimum, light focus ring */
+  --color-accent-800: #8f5326;
+  --color-accent-900: #6a4220;
+  --color-accent-950: #462b14;
+
+  /* paper (light) */
+  --color-paper: #f7f6f3;
+  --color-paper-raised: #ffffff;
+  --color-paper-sunken: #efede8;
+  --color-ink: #141210;
+  --color-ink-muted: #6b6660;
+  --color-ink-faint: #8f8a82; /* >=24px / decorative only */
+  --color-hairline: #e1ded7;
+  --color-hairline-strong: #cbc6bc;
+
+  /* night (dark) */
+  --color-night: #121110;
+  --color-night-raised: #1a1816;
+  --color-night-sunken: #0c0b0a;
+  --color-day: #ede9e2;
+  --color-day-muted: #a29b91;
+  --color-day-faint: #6f6a63; /* large text only */
+  --color-hairline-night: #2a2622;
+
+  /* fluid type scale — clamp() over 360px -> 1440px */
+  --text-label: 0.6875rem;
+  --text-xs: clamp(0.75rem, 0.748rem + 0.09vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.873rem + 0.09vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.997rem + 0.14vw, 1.094rem);
+  --text-lede: clamp(1.125rem, 1.119rem + 0.28vw, 1.3125rem);
+  --text-lg: clamp(1.3125rem, 1.302rem + 0.46vw, 1.625rem);
+  --text-xl: clamp(1.625rem, 1.608rem + 0.74vw, 2.125rem);
+  --text-2xl: clamp(2rem, 1.971rem + 1.3vw, 2.875rem);
+  --text-3xl: clamp(2.5rem, 2.45rem + 2.22vw, 4rem);
+  --text-4xl: clamp(3.25rem, 3.175rem + 3.33vw, 5.5rem);
+  --text-display: clamp(4rem, 2.417rem + 7.04vw, 8.75rem);
+
+  /* spacing */
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
+  --spacing-5xl: 8rem;
+  --spacing-6xl: 12rem;
+
+  /* radii — editorial is sharp, radii are nearly absent by design */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --duration-instant: 120ms;
+  --duration-fast: 180ms;
+  --duration-base: 240ms;
+  --duration-slow: 320ms;
+  --duration-slower: 480ms;
+  --duration-reveal: 560ms;
+  --duration-cinematic: 720ms;
+  --duration-draw: 1400ms;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* semantic indirection — resolved per color-scheme below */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-mark: var(--accent-mark);
+}
+
+:root {
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-header: 40;
+  --z-overlay: 60;
+  --z-modal: 80;
+  --z-cursor: 100;
+
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 0.5rem + 3.5vw, 6rem);
+  --gutter: clamp(1rem, 0.6rem + 1.2vw, 2rem);
+  --section-y: clamp(6rem, 5.73rem + 11.85vw, 14rem);
+  --offset-step: clamp(2rem, 4vw, 5rem);
+
+  --measure-prose: 66ch;
+  --measure-lede: 46ch;
+  --measure-narrow: 34ch;
+
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+}
+
+@layer base {
+  :root,
+  [data-scheme="light"] {
+    --surface: var(--color-paper);
+    --surface-2: var(--color-paper-raised);
+    --fg: var(--color-ink);
+    --fg-muted: var(--color-ink-muted);
+    --fg-faint: var(--color-ink-faint);
+    --rule: var(--color-hairline);
+    --accent: var(--color-accent-700);
+    --accent-mark: var(--color-accent-600);
+    --focus-ring-color: var(--color-accent-700);
+  }
+
+  [data-scheme="dark"] {
+    --surface: var(--color-night);
+    --surface-2: var(--color-night-raised);
+    --fg: var(--color-day);
+    --fg-muted: var(--color-day-muted);
+    --fg-faint: var(--color-day-faint);
+    --rule: var(--color-hairline-night);
+    --accent: var(--color-accent-500);
+    --accent-mark: var(--color-accent-400);
+    --focus-ring-color: var(--color-accent-300);
+  }
+
+  /* Any element carrying data-scheme paints its own surface/fg
+     immediately — a subtree can't flip the tokens without flipping the
+     actual background, even if the author forgets bg-[var(--surface)]. */
+  [data-scheme] {
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--surface);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent-600);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: inherit;
+  }
+
+  /* skip link */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--spacing-lg);
+    z-index: var(--z-modal);
+    background: var(--surface-2);
+    color: var(--fg);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .skip-link:focus {
+    top: var(--spacing-lg);
+  }
+}
+
+@layer utilities {
+  .grid-editorial {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    max-inline-size: var(--container-max);
+    padding-inline: var(--container-pad);
+    margin-inline: auto;
+  }
+
+  @media (width < 1024px) {
+    .grid-editorial {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+  }
+
+  @media (width < 640px) {
+    .grid-editorial {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .bleed {
+    grid-column: 1 / -1;
+    margin-inline: calc(50% - 50vw);
+    width: 100vw;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
