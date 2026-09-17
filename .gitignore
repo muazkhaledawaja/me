@@ -1,0 +1,16 @@
+moath-portfolio.html
+
+# next.js
+/.next/
+/out/
+node_modules/
+.env*.local
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
