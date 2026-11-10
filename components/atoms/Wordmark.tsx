@@ -1,19 +1,14 @@
 import { SignatureMark } from "./SignatureMark";
 
-// Exact lockup from docs/moath-signature-logo.html: mark + divider +
-// "Moath" serif italic + "BACKEND DEVELOPER" mono tracked caps.
+// Signature mark + name. The mark is Moath's digitized signature (see
+// docs/moath-signature-logo.html); the name is set in the interface sans so
+// the poster-size name in the hero stays the only display moment.
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-3 ${className ?? ""}`}>
-      <SignatureMark size={22} strokeColor="var(--fg)" />
-      <span className="flex items-center gap-2.5">
-        <span className="font-serif italic text-[1.15rem] leading-none text-[var(--fg)]">
-          Moath
-        </span>
-        <span aria-hidden="true" className="h-3 w-px bg-[var(--color-accent-600)]" />
-        <span className="font-mono text-[10px] leading-none tracking-[0.28em] text-[var(--fg-muted)]">
-          BACKEND DEVELOPER
-        </span>
+    <span className={`inline-flex items-center gap-2.5 ${className ?? ""}`}>
+      <SignatureMark size={18} strokeColor="var(--accent-mark)" />
+      <span className="font-sans text-[length:var(--text-sm)] font-semibold leading-none text-[var(--fg)]">
+        Moath K. Awaja
       </span>
     </span>
   );

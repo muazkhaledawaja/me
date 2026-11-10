@@ -9,12 +9,19 @@ export const sadaraSports: Project = {
   number: "01",
   title: "Sadara Sports",
   titleNote: "صدارة",
-  role: "AI-assisted Lead Engineer",
+  role: "Lead Full-Stack Engineer, sole engineer",
   type: "flagship",
-  year: "2024 → now",
+  year: "Feb — Oct 2026",
   summary:
     "Bilingual Arabic RTL + English LTR SaaS platform for professional football agencies across MENA.",
   outcomeLine: "21-role RBAC · 50+ backend modules · 2 locales",
+  plate: "matrix",
+  highlights: [
+    "Built solo from idea to production, covering the player lifecycle across 11 user portals.",
+    "Found and fixed a security gap that exposed player data between clubs.",
+    "E-signature approval workflows and match analysis tools using live football data.",
+    "Deployment, hosting and monitoring, including a move to a new cloud provider.",
+  ],
   stack: [
     "Node.js",
     "Express",
@@ -46,6 +53,7 @@ export const sadaraSports: Project = {
     architectureDiagram: "sadara",
     decisions: [
       {
+        title: "Access control as data",
         context:
           "Roles and permissions needed to be configurable per agency without code changes.",
         options: [
@@ -58,6 +66,7 @@ export const sadaraSports: Project = {
           "New roles ship as data, not deploys. The cost is a permission check on every request path instead of a compile-time guarantee — mitigated with Redis-cached permission lookups.",
       },
       {
+        title: "HttpOnly sessions with refresh rotation",
         context: "Sessions needed to survive token theft without forcing re-logins constantly.",
         options: [
           "Long-lived JWT in localStorage",
@@ -69,6 +78,7 @@ export const sadaraSports: Project = {
           "Immune to XSS token theft (no JS-readable token) at the cost of needing a rotation endpoint and reuse-detection logic the team had to get right once, carefully.",
       },
       {
+        title: "One factory for every module",
         context: "50+ backend modules needed a shared shape so new modules didn't reinvent structure.",
         options: [
           "Ad hoc per-module structure",
@@ -80,6 +90,7 @@ export const sadaraSports: Project = {
           "Faster to onboard a new module, but any shared bug in the factory propagates to every module it generated — the factory itself carries the highest test burden in the codebase.",
       },
       {
+        title: "Server-Sent Events for notifications",
         context: "Approval-heavy workflows (contracts, transfers) needed status changes visible in real time without polling.",
         options: ["Client polling", "WebSockets", "Server-Sent Events"],
         decision:
@@ -108,6 +119,7 @@ export const sadaraSports: Project = {
     results: [
       { label: "Configurable roles", value: "21", measured: false },
       { label: "Backend modules", value: "50+", measured: false },
+      { label: "User portals", value: "11", measured: false },
       { label: "Interface locales", value: "2 (RTL + LTR)", measured: false },
       { label: "Public deployment", value: "Private — client platform, no public link", measured: false },
     ],

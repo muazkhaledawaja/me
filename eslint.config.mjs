@@ -7,7 +7,7 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: ["legacy/**", "docs/**", "moath-portfolio.html"],
+    ignores: [".next/**", "next-env.d.ts", "legacy/**", "docs/**", "moath-portfolio.html"],
   },
   {
     rules: {

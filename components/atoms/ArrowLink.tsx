@@ -1,39 +1,35 @@
 import Link from "next/link";
 
+// Text link with a rule that retracts on hover. `solid` is the one filled
+// button on the site (hero → work).
 export function ArrowLink({
   href,
   children,
   external = false,
+  solid = false,
+  className,
 }: {
   href: string;
   children: React.ReactNode;
   external?: boolean;
+  solid?: boolean;
+  className?: string;
 }) {
-  const content = (
-    <span className="group inline-flex items-center gap-1.5 font-mono text-[length:var(--text-sm)] text-[var(--fg)]">
-      <span className="relative">
-        {children}
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out-expo)] group-hover:scale-x-100"
-        />
-      </span>
-      <span
-        aria-hidden="true"
-        className="inline-block transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)] group-hover:translate-x-1"
-      >
-        →
-      </span>
-    </span>
-  );
+  const classes = solid
+    ? `inline-flex items-center bg-[var(--fg)] px-5 py-3 font-sans text-[length:var(--text-sm)] font-semibold text-[var(--surface)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--accent)] ${className ?? ""}`
+    : `link-rule font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)] ${className ?? ""}`;
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
-        {content}
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+        {children}
       </a>
     );
   }
 
-  return <Link href={href}>{content}</Link>;
+  return (
+    <Link href={href} className={classes}>
+      {children}
+    </Link>
+  );
 }

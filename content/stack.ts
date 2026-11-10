@@ -1,36 +1,43 @@
 import type { StackGroup } from "./types";
 
-// Source: legacy/index.html "Toolkit" section. Rendered as the Stack Index
-// (plan §4(a)) — a colophon list, not a card grid.
+// Source: the "Skills" section of the 2026 CV, regrouped under the six
+// headings of the Technical Index (plus AI, which the CV lists separately).
 export const stack: StackGroup[] = [
   {
     name: "Backend",
-    items: ["Node.js", "Express", "NestJS", "TypeScript", "REST APIs", "tRPC"],
+    items: ["Node.js", "TypeScript", "JavaScript", "NestJS", "Express", "tRPC"],
   },
   {
     name: "Databases",
-    items: ["PostgreSQL", "MongoDB", "OracleDB", "Redis", "Supabase", "Prisma"],
+    items: ["PostgreSQL", "MongoDB", "Oracle", "Redis", "Supabase", "SQL"],
   },
   {
     name: "DevOps",
-    items: ["Docker", "CI/CD", "Git", "GitHub", "GCP Cloud Run", "Vercel"],
+    items: ["Docker", "CI/CD", "Git / GitHub", "Fly.io", "GCP Cloud Run", "Vercel", "Cloudflare", "Sentry"],
   },
   {
     name: "Full-Stack",
-    items: ["React", "Next.js", "TanStack Query", "Tailwind"],
+    items: ["React", "Next.js", "Tailwind CSS", "Arabic RTL / i18n"],
   },
   {
     name: "Testing",
-    items: ["Unit Testing", "Integration", "Error Handling"],
+    items: ["Vitest", "Playwright", "Unit testing", "Integration testing"],
   },
   {
     name: "Architecture",
     items: [
-      "API Design",
-      "Data Modeling",
-      "Authentication",
-      "Performance Tuning",
-      "Clean Architecture",
+      "REST API design",
+      "OpenAPI / Swagger",
+      "JWT authentication",
+      "RBAC",
+      "Data modeling",
+      "BullMQ",
+      "SSE",
+      "WebSockets",
     ],
+  },
+  {
+    name: "AI",
+    items: ["LLM agent and tool-calling integration", "Claude Code"],
   },
 ];

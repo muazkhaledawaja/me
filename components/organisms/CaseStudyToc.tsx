@@ -20,10 +20,10 @@ export function CaseStudyToc() {
   return (
     <nav
       aria-label="On this page"
-      className="fixed top-32 z-[var(--z-sticky)] hidden w-44 xl:block"
-      style={{
-        insetInlineEnd: "max(var(--container-pad), calc((100vw - var(--container-max)) / 2 + var(--container-pad)))",
-      }}
+      // Lives in the outer margin, beside the 1440px sheet — so it only
+      // appears on viewports wide enough to have one, and never sits on top
+      // of the right-hand columns.
+      className="fixed end-5 top-32 z-[var(--z-sticky)] hidden w-44 min-[1680px]:block"
     >
       <ol className="space-y-2 border-l border-[var(--rule)] pl-[var(--spacing-md)]">
         {SECTIONS.map((section) => {

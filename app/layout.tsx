@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans_Arabic, Newsreader } from "next/font/google";
 import { LazyMotion, domAnimation, MotionConfig } from "framer-motion";
 import { Nav } from "@/components/organisms/Nav";
 import { Footer } from "@/components/organisms/Footer";
@@ -7,25 +7,38 @@ import { personJsonLd } from "@/lib/jsonld";
 import { siteUrl, siteTitle, siteDescription } from "@/lib/site";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
+// Archivo is variable on weight and width — the width axis is what turns
+// one family into both the poster display face and the interface sans.
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: "400",
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  preload: true,
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
   style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+  axes: ["opsz"],
+  variable: "--font-newsreader",
   preload: true,
   display: "swap",
 });
 
-const inter = Inter({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
-  preload: true,
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  preload: false,
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+// Arabic is used for the Sadara title and the Arabic edition name only.
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: "700",
+  variable: "--font-plex-arabic",
   preload: false,
   display: "swap",
 });
@@ -64,10 +77,10 @@ function PersonJsonLd() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable} ${plexArabic.variable}`}>
       <body>
         <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+          <style>{`[data-reveal],[data-reveal] [data-cell],[data-reveal] [data-grow]{opacity:1!important;transform:none!important;clip-path:none!important}`}</style>
         </noscript>
         <PersonJsonLd />
         <a href="#main" className="skip-link">

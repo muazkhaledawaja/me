@@ -8,6 +8,9 @@ export type StackGroup = {
 };
 
 export type Decision = {
+  /** short name for the decision — shown on the home spread and as the
+   * record heading on the case study. */
+  title: string;
   context: string;
   options: string[];
   decision: string;
@@ -51,6 +54,10 @@ export type Project = {
   summary: string;
   outcomeLine: string; // shown on hover in the home work index
   stack: string[];
+  /** what shipped — one line each, sourced from the CV. */
+  highlights?: string[];
+  /** which hand-built figure illustrates the project on the home spread. */
+  plate: "matrix" | "lanes" | "editions" | "pipeline";
   link?: { label: string; href: string };
   /** present only for projects with a dedicated case-study page. */
   caseStudy?: CaseStudy;
@@ -58,11 +65,16 @@ export type Project = {
 
 export type ExperienceEntry = {
   id: string;
-  kind: "role" | "education" | "certificate";
+  kind: "role" | "education" | "training";
   title: string;
   org: string;
   location?: string;
-  range: string; // display string — ranges are NOT parsed into a shared timeline, see plan §0 row 8
+  range: string; // display string
+  /** "YYYY-MM" — positions the entry on the career chart. `end: null`
+   * means ongoing. Overlaps are real and are drawn as overlaps. */
+  start: string;
+  end: string | null;
+  summary?: string;
   concurrent?: boolean;
   bullets: string[];
   tags: string[];
@@ -82,8 +94,9 @@ export type Profile = {
   role: string;
   location: string;
   origin: string;
-  tagline: string;
-  heroSubline: string;
+  headline: string;
+  specialties: string[];
+  intro: string;
   pullQuote: string;
   bio: string[];
   status: string;

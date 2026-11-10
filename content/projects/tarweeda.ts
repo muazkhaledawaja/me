@@ -12,6 +12,7 @@ export const tarweeda: Project = {
   summary:
     "Full-stack SaaS platform for events, bookings, and e-commerce — product catalog, order management, and bookings for events, packages, catering, and hire services.",
   outcomeLine: "Live at tarweeda.com",
+  plate: "lanes",
   stack: ["NestJS", "React", "TypeScript", "Supabase", "Docker", "Resend"],
   link: { label: "tarweeda.com", href: "https://tarweeda.com" },
   caseStudy: {
@@ -31,6 +32,7 @@ export const tarweeda: Project = {
     architectureDiagram: "tarweeda",
     decisions: [
       {
+        title: "An API that defends itself",
         context: "Public REST API needed to withstand normal internet traffic without a dedicated ops team watching it.",
         options: ["No rate limiting, rely on infra", "Application-level rate limiting + hardened headers"],
         decision:
@@ -39,6 +41,7 @@ export const tarweeda: Project = {
           "The API defends itself regardless of what sits in front of it in production, at the cost of tuning rate-limit thresholds so legitimate booking bursts (a popular event going live) don't get throttled.",
       },
       {
+        title: "Three booking types, one lifecycle",
         context: "Bookings span three distinct domains — events, packages/catering, and hire services — with different fields and lifecycles.",
         options: ["One generic 'booking' entity with optional fields", "Separate booking types sharing a common state machine"],
         decision:
@@ -47,6 +50,7 @@ export const tarweeda: Project = {
           "The domain model stays honest — no null-heavy generic entity — at the cost of some duplicated CRUD scaffolding across the three booking types.",
       },
       {
+        title: "Email is a downstream effect",
         context: "Transactional email reliability directly affects whether a customer's booking is confirmed.",
         options: ["Send email inline in the request path", "Queue email sends via Resend with the request returning once the booking is persisted"],
         decision:

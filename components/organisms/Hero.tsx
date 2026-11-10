@@ -1,76 +1,68 @@
 import { profile } from "@/content/profile";
 import { StatusDot } from "@/components/atoms/StatusDot";
-import { RequestPathDiagram } from "./RequestPathDiagram";
+import { ArrowLink } from "@/components/atoms/ArrowLink";
 
-// Section 1 — Hero. The whole identity in one screen: name, positioning,
-// and the request-path diagram standing in for the legacy Spline iframe.
-// This is the LCP element — server-rendered text, CSS-only mount reveal
-// (no Framer/JS gate) so nothing here blocks paint.
+// The opening spread. The name is the image: set at poster size, edge to
+// edge, with everything else subordinate to it. This is the LCP element —
+// server-rendered text with a CSS-only load sequence, no JS gate.
 export function Hero() {
   return (
-    <section
-      className="grid-editorial relative overflow-hidden"
-      style={{ minBlockSize: "88svh", paddingBlock: "var(--spacing-4xl)" }}
-    >
-      <RequestPathDiagram
-        className="pointer-events-none absolute top-[8%] z-[var(--z-base)] w-[55%] max-w-none opacity-70"
-        style={{ left: "58%" }}
-      />
+    <section aria-labelledby="hero-name" className="relative overflow-hidden">
+      {/* masthead line */}
+      <div className="grid-editorial pt-[var(--spacing-lg)] lg:pt-[var(--spacing-2xl)]">
+        <div className="hero-fade col-span-full flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-[var(--fg)] pt-[var(--spacing-sm)]">
+          <p className="font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">{profile.role}</p>
+          <p className="annot text-[var(--fg-muted)]">{profile.specialties.join(" / ")}</p>
+          <p className="annot hidden text-[var(--fg-muted)] md:block">{profile.location} — 30.03° N, 31.47° E</p>
+          <StatusDot label={profile.status} />
+        </div>
+      </div>
 
-      <p
-        className="hero-reveal relative z-[var(--z-raised)] col-start-1 col-span-2 self-start font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]"
-        style={{ marginBlockStart: "0.35em", animationDelay: "0ms" }}
+      {/* the name */}
+      <h1
+        id="hero-name"
+        aria-label={profile.name}
+        className="display mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] pt-[var(--spacing-xl)] text-[length:clamp(4rem,23vw,12rem)] text-[var(--fg)] lg:pt-[var(--spacing-2xl)] lg:text-[length:var(--text-poster)]"
       >
-        {profile.role} · {profile.location.split(",")[0]}
-      </p>
-
-      <h1 className="relative z-[var(--z-raised)] col-start-2 col-span-8 font-serif text-[length:var(--text-display)] leading-[0.88] tracking-[-0.03em] text-[var(--fg)]">
-        <span className="hero-reveal block" style={{ animationDelay: "90ms" }}>
-          {profile.firstName}
-        </span>
-        <span className="hero-reveal block italic" style={{ animationDelay: "180ms" }}>
-          {profile.lastName}
-        </span>
-        <span
-          className="hero-reveal block font-sans text-[length:var(--text-2xl)] not-italic leading-[1.2] tracking-normal text-[var(--fg-muted)]"
-          style={{
-            marginBlockStart: "var(--spacing-lg)",
-            marginInlineStart: "var(--offset-step)",
-            animationDelay: "270ms",
-          }}
-        >
-          {profile.tagline}
+        <span aria-hidden="true" className="flex flex-col lg:flex-row lg:justify-between">
+          <span className="hero-line block whitespace-nowrap" style={{ ["--d" as string]: "80ms" }}>
+            Moath K.
+          </span>
+          <span className="hero-line block text-end lg:text-start" style={{ ["--d" as string]: "200ms" }}>
+            Awaja
+          </span>
         </span>
       </h1>
 
-      <div
-        className="hero-reveal relative z-[var(--z-raised)] col-start-10 col-span-3 flex flex-col items-end justify-end gap-3 self-end text-right font-mono text-[length:var(--text-xs)] text-[var(--fg-muted)]"
-        style={{ animationDelay: "360ms" }}
-      >
-        <p>Node.js · TypeScript · NestJS</p>
-        <p>PostgreSQL · MongoDB · OracleDB</p>
-        <StatusDot label={profile.status} />
-      </div>
+      <div className="grid-editorial pb-[var(--spacing-4xl)] pt-[var(--spacing-lg)] lg:pt-[var(--spacing-xl)]">
+        <div
+          aria-hidden="true"
+          className="hero-fade col-span-full h-px bg-[var(--fg)]"
+          style={{ ["--d" as string]: "320ms" }}
+        />
 
-      <div
-        className="hero-reveal relative z-[var(--z-raised)] col-start-1 col-span-2 mt-auto self-end font-mono text-[length:var(--text-xs)] text-[var(--fg-faint)]"
-        style={{ animationDelay: "450ms" }}
-      >
-        Scroll
-      </div>
+        <p
+          className="hero-line narrative col-span-full pt-[var(--spacing-xl)] text-[length:var(--text-3xl)] leading-[1.02] tracking-[-0.02em] text-[var(--fg)] lg:col-span-7 lg:text-[length:var(--text-4xl)]"
+          style={{ ["--d" as string]: "380ms" }}
+        >
+          {profile.headline}
+        </p>
 
-      <style>{`
-        .hero-reveal {
-          animation: hero-reveal 720ms var(--ease-out-expo) both;
-        }
-        @keyframes hero-reveal {
-          from { clip-path: inset(0 0 100% 0); transform: translateY(24px); }
-          to { clip-path: inset(0 0 0% 0); transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .hero-reveal { animation: none; }
-        }
-      `}</style>
+        <div
+          className="hero-fade col-span-full flex flex-col gap-[var(--spacing-lg)] pt-[var(--spacing-xl)] lg:col-start-9 lg:col-span-4 lg:pt-[calc(var(--spacing-xl)+0.6rem)]"
+          style={{ ["--d" as string]: "520ms" }}
+        >
+          <p className="max-w-[40ch] font-sans text-[length:var(--text-base)] text-[var(--fg-muted)]">
+            {profile.intro}
+          </p>
+          <div className="flex flex-wrap items-center gap-x-[var(--spacing-lg)] gap-y-[var(--spacing-sm)]">
+            <ArrowLink href="/#work" solid>
+              Read the work
+            </ArrowLink>
+            <ArrowLink href="/#contact">Get in touch</ArrowLink>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

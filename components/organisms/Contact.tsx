@@ -1,55 +1,57 @@
 import { profile } from "@/content/profile";
+import { Reveal } from "@/components/atoms/Reveal";
+import { StatusDot } from "@/components/atoms/StatusDot";
 
+const CHANNELS = [
+  { label: "GitHub", display: profile.links.githubDisplay, href: profile.links.github },
+  { label: "LinkedIn", display: profile.links.linkedinDisplay, href: profile.links.linkedin },
+  { label: "WhatsApp", display: profile.links.whatsappDisplay, href: profile.links.whatsapp },
+];
+
+// Contact. The closing sheet: one question, one address at display size,
+// and the other channels as a short register.
 export function Contact() {
   return (
-    <section id="contact" className="grid-editorial" style={{ paddingBlock: "var(--spacing-5xl)" }}>
-      <h2 className="col-start-1 col-span-4 lg:col-start-1 lg:col-span-9 font-serif text-[length:var(--text-3xl)] text-[var(--fg)]">
+    <section id="contact" aria-labelledby="contact-heading" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
+      <div className="col-span-full flex items-baseline justify-between border-t border-[var(--fg)] pt-[var(--spacing-sm)]">
+        <p className="font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">Contact</p>
+        <StatusDot label={profile.status} />
+      </div>
+
+      <h2
+        id="contact-heading"
+        className="narrative col-span-full mt-[var(--spacing-2xl)] text-[length:var(--text-3xl)] leading-[1.04] tracking-[-0.02em] text-[var(--fg)] lg:col-span-8 lg:text-[length:var(--text-4xl)]"
+      >
         Got an idea? I&rsquo;d love to hear it.
       </h2>
 
       <a
         href={`mailto:${profile.links.email}`}
-        className="group relative col-start-1 col-span-4 lg:col-start-1 lg:col-span-8 inline-block w-fit font-serif text-[length:var(--text-3xl)] text-[var(--fg)]"
-        style={{ marginBlockStart: "var(--spacing-xl)" }}
+        className="display group col-span-full mt-[var(--spacing-2xl)] block text-[length:clamp(1.9rem,8.3vw,9.5rem)] lowercase text-[var(--fg)] transition-colors duration-[var(--duration-base)] hover:text-[var(--accent)]"
       >
-        {profile.links.email}
+        <Reveal as="span" variant="mask" className="block">
+          {profile.links.email}
+        </Reveal>
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out-expo)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+          className="mt-[0.12em] block h-[3px] origin-left scale-x-100 bg-current transition-transform duration-[var(--duration-slower)] ease-[var(--ease-out-expo)] group-hover:scale-x-0 group-hover:origin-right"
         />
       </a>
 
-      <ul className="col-start-1 col-span-4 lg:col-start-10 lg:col-span-3 lg:row-start-2 self-end mt-[var(--spacing-xl)] lg:mt-0 flex flex-col items-start lg:items-end gap-2 text-left lg:text-right font-mono text-[length:var(--text-xs)] text-[var(--fg-muted)] list-none p-0">
-        <li>
-          <a
-            href={profile.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--fg)] transition-colors"
-          >
-            {profile.links.githubDisplay}
-          </a>
-        </li>
-        <li>
-          <a
-            href={profile.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--fg)] transition-colors"
-          >
-            {profile.links.linkedinDisplay}
-          </a>
-        </li>
-        <li>
-          <a
-            href={profile.links.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--fg)] transition-colors"
-          >
-            {profile.links.whatsappDisplay}
-          </a>
-        </li>
+      <ul className="col-span-full mt-[var(--spacing-2xl)] grid gap-x-[var(--gutter)] sm:grid-cols-3">
+        {CHANNELS.map((channel) => (
+          <li key={channel.label} className="border-t border-[var(--rule)] py-[var(--spacing-sm)]">
+            <span className="annot block text-[var(--fg-muted)]">{channel.label}</span>
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-rule font-sans text-[length:var(--text-base)] font-semibold text-[var(--fg)]"
+            >
+              {channel.display}
+            </a>
+          </li>
+        ))}
       </ul>
     </section>
   );
