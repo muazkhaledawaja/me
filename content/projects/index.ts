@@ -1,11 +1,12 @@
 import type { Project } from "../types";
 import { sadaraSports } from "./sadara-sports";
 import { tarweeda } from "./tarweeda";
+import { traceOfTheTide } from "./trace-of-the-tide";
 import { gymAttendanceAnalyzer } from "./gym-attendance-analyzer";
 
 // Single ordered source of truth. Home index and sitemap both derive from
 // this so they can never drift — see plan §4(b) and §10.
-export const projects: Project[] = [sadaraSports, tarweeda, gymAttendanceAnalyzer];
+export const projects: Project[] = [sadaraSports, tarweeda, traceOfTheTide, gymAttendanceAnalyzer];
 
 export function bySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

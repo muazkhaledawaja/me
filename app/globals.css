@@ -7,41 +7,47 @@
 /* ---------------------------------------------------------------------- */
 
 @theme {
-  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "SFMono-Regular", Consolas, monospace;
+  /* Archivo carries display + interface (its width axis does the heavy
+     lifting: 62% for display, 100% for text). Newsreader is the narrative
+     voice. Plex Mono is reserved for figure annotations and code. */
+  --font-display: var(--font-archivo), "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-sans: var(--font-archivo), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-plex-mono), "SFMono-Regular", Consolas, monospace;
+  --font-arabic: var(--font-plex-arabic), "Geeza Pro", "Noto Sans Arabic", sans-serif;
 
-  /* accent ramp — warm terracotta, continuity with the signature mark */
-  --color-accent-50: #fbf3ec;
-  --color-accent-100: #f5e3d2;
-  --color-accent-200: #ebc7a7;
-  --color-accent-300: #e0a97c;
-  --color-accent-400: #d89760;
-  --color-accent-500: #d4884a;
-  --color-accent-600: #b8743d; /* brand hex — >=24px text, borders, marks only */
-  --color-accent-700: #a9642f; /* body-text-safe minimum, light focus ring */
-  --color-accent-800: #8f5326;
-  --color-accent-900: #6a4220;
-  --color-accent-950: #462b14;
+  /* accent ramp — cobalt. The single accent of the journal; swap this ramp
+     to re-colour the whole site. */
+  --color-accent-50: #eef1fd;
+  --color-accent-100: #dbe1fb;
+  --color-accent-200: #b9c5f8;
+  --color-accent-300: #93a6f5;
+  --color-accent-400: #6c85f0;
+  --color-accent-500: #3f5fe6;
+  --color-accent-600: #1c3fd4; /* brand cobalt */
+  --color-accent-700: #1535b8; /* body-text-safe on paper */
+  --color-accent-800: #112a92;
+  --color-accent-900: #0d206d;
+  --color-accent-950: #081547;
 
-  /* paper (light) */
-  --color-paper: #f7f6f3;
-  --color-paper-raised: #ffffff;
-  --color-paper-sunken: #efede8;
-  --color-ink: #141210;
-  --color-ink-muted: #6b6660;
-  --color-ink-faint: #8f8a82; /* >=24px / decorative only */
-  --color-hairline: #e1ded7;
-  --color-hairline-strong: #cbc6bc;
+  /* paper (light) — warm ivory */
+  --color-paper: #f3efe6;
+  --color-paper-raised: #f9f6ef;
+  --color-paper-sunken: #e9e4d8;
+  --color-ink: #000000;
+  --color-ink-muted: #4f4b44;
+  --color-ink-faint: #8a8578; /* >=24px / decorative only */
+  --color-hairline: #d3ccbc;
+  --color-hairline-strong: #b3ab98;
 
   /* night (dark) */
-  --color-night: #121110;
-  --color-night-raised: #1a1816;
-  --color-night-sunken: #0c0b0a;
-  --color-day: #ede9e2;
-  --color-day-muted: #a29b91;
-  --color-day-faint: #6f6a63; /* large text only */
-  --color-hairline-night: #2a2622;
+  --color-night: #000000;
+  --color-night-raised: #0e0e0e;
+  --color-night-sunken: #000000;
+  --color-day: #f3efe6;
+  --color-day-muted: #a8a294;
+  --color-day-faint: #6f6a5f; /* large text only */
+  --color-hairline-night: #2b2a27;
 
   /* fluid type scale — clamp() over 360px -> 1440px */
   --text-label: 0.6875rem;
@@ -55,6 +61,8 @@
   --text-3xl: clamp(2.5rem, 2.45rem + 2.22vw, 4rem);
   --text-4xl: clamp(3.25rem, 3.175rem + 3.33vw, 5.5rem);
   --text-display: clamp(4rem, 2.417rem + 7.04vw, 8.75rem);
+  --text-poster: clamp(4.25rem, 15.4vw, 17.5rem); /* the name, and nothing else */
+  --text-numeral: clamp(6.5rem, 24vw, 23rem);
 
   /* spacing */
   --spacing-2xs: 0.25rem;
@@ -115,10 +123,10 @@
   --container-max: 1440px;
   --container-pad: clamp(1.25rem, 0.5rem + 3.5vw, 6rem);
   --gutter: clamp(1rem, 0.6rem + 1.2vw, 2rem);
-  --section-y: clamp(6rem, 5.73rem + 11.85vw, 14rem);
+  --section-y: clamp(5rem, 3rem + 8vw, 10rem);
   --offset-step: clamp(2rem, 4vw, 5rem);
 
-  --measure-prose: 66ch;
+  --measure-prose: 62ch;
   --measure-lede: 46ch;
   --measure-narrow: 34ch;
 
@@ -147,7 +155,7 @@
     --fg-muted: var(--color-day-muted);
     --fg-faint: var(--color-day-faint);
     --rule: var(--color-hairline-night);
-    --accent: var(--color-accent-500);
+    --accent: var(--color-accent-300);
     --accent-mark: var(--color-accent-400);
     --focus-ring-color: var(--color-accent-300);
   }
@@ -170,7 +178,8 @@
     color: var(--fg);
     font-family: var(--font-sans);
     font-size: var(--text-base);
-    line-height: 1.65;
+    line-height: 1.55;
+    font-stretch: 100%;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -178,6 +187,19 @@
   ::selection {
     background: var(--color-accent-600);
     color: var(--color-paper);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
   }
 
   :focus-visible {
@@ -205,6 +227,33 @@
   }
 }
 
+@layer components {
+  /* Display voice — Archivo at its narrowest and heaviest, set tight. */
+  .display {
+    font-family: var(--font-display);
+    font-stretch: 62%;
+    font-weight: 800;
+    line-height: 0.84;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+  }
+
+  /* Narrative voice — Newsreader with a little more air than the sans. */
+  .narrative {
+    font-family: var(--font-serif);
+    line-height: 1.5;
+    font-optical-sizing: auto;
+  }
+
+  /* Figure annotation — the only place the mono appears outside code. */
+  .annot {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+}
+
 @layer utilities {
   .grid-editorial {
     display: grid;
@@ -216,12 +265,6 @@
   }
 
   @media (width < 1024px) {
-    .grid-editorial {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
-    }
-  }
-
-  @media (width < 640px) {
     .grid-editorial {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -236,9 +279,152 @@
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
+
+  .link-rule {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    padding-block-end: 0.12em;
+    transition:
+      background-size var(--duration-slow) var(--ease-out-expo),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .link-rule:hover {
+    color: var(--accent);
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Scroll reveals. One tiny client component (atoms/Reveal) flips           */
+/* data-inview; everything else is CSS, so nothing re-renders on scroll.    */
+/* ---------------------------------------------------------------------- */
+
+[data-reveal="rise"] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out-quart),
+    transform var(--duration-cinematic) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="rise"][data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Typography reveal: the line is clipped by its own box and slides up into
+   it, like a sheet being pulled through a slot. */
+[data-reveal="mask"] {
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(0.18em);
+  transition:
+    clip-path var(--duration-cinematic) var(--ease-out-expo),
+    transform var(--duration-cinematic) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="mask"][data-inview="true"] {
+  clip-path: inset(-0.1em -0.1em -0.25em -0.1em);
+  transform: none;
+}
+
+/* Rules draw themselves from the inline start. */
+[data-reveal="rule"] {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--duration-draw) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="rule"][data-inview="true"] {
+  transform: none;
+}
+
+/* Figures: children carrying --i stagger in once the plate is in view. */
+[data-reveal="plate"] [data-cell] {
+  opacity: 0;
+  transition: opacity var(--duration-slower) var(--ease-standard);
+  transition-delay: calc(var(--i, 0) * 9ms);
+}
+
+[data-reveal="plate"][data-inview="true"] [data-cell] {
+  opacity: 1;
+}
+
+[data-reveal="plate"] [data-grow] {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--duration-draw) var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+[data-reveal="plate"][data-inview="true"] [data-grow] {
+  transform: none;
+}
+
+/* Hero load sequence — the single orchestrated moment on the page. */
+.hero-line {
+  animation: hero-line var(--duration-cinematic) var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes hero-line {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.2em);
+  }
+  to {
+    clip-path: inset(-0.1em -0.1em -0.2em -0.1em);
+    transform: none;
+  }
+}
+
+.hero-fade {
+  animation: hero-fade var(--duration-cinematic) var(--ease-out-quart) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Shiki dual themes follow the scheme. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+}
+
+[data-scheme="dark"] .shiki,
+[data-scheme="dark"] .shiki span {
+  color: var(--shiki-dark);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal] [data-cell],
+  [data-reveal] [data-grow] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .hero-line,
+  .hero-fade {
+    animation: none !important;
+  }
+
   *,
   *::before,
   *::after {

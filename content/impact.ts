@@ -1,12 +1,31 @@
 import type { ResultFact } from "./types";
 
-// Cross-cutting facts for the home Impact band — not owned by a single
-// project. The 25% figure belongs to SAVCOM (content/experience.ts), not
-// Sadara (see plan §0 row 7) — it appears here as a standalone verified
-// fact, not attributed to a project case study.
-export const impactStats: ResultFact[] = [
-  { label: "Configurable roles in Sadara's RBAC", value: "21", measured: false },
-  { label: "Backend modules shipped in Sadara", value: "50+", measured: false },
-  { label: "Faster API response times at SAVCOM", value: "25%", measured: true },
-  { label: "Interface locales, RTL + LTR", value: "2", measured: false },
+// Cross-cutting facts for the home Impact section. The 25% figure belongs
+// to SAVCOM (content/experience.ts), not Sadara. `source` names where each
+// figure comes from so the page never implies otherwise.
+export const impactStats: (ResultFact & { source: string })[] = [
+  {
+    value: "21",
+    label: "configurable roles, managed by agency admins without a developer in the loop.",
+    source: "Sadara Sports — access control",
+    measured: false,
+  },
+  {
+    value: "50+",
+    label: "backend modules, every one generated from the same factory.",
+    source: "Sadara Sports — backend",
+    measured: false,
+  },
+  {
+    value: "25%",
+    label: "faster API response times on an e-commerce backend.",
+    source: "SAVCOM — NestJS platform",
+    measured: true,
+  },
+  {
+    value: "2",
+    label: "interface locales in one component tree: Arabic, right to left, and English, left to right.",
+    source: "Sadara Sports — interface",
+    measured: false,
+  },
 ];

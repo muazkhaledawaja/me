@@ -1,75 +1,58 @@
 import { profile } from "@/content/profile";
-import { Eyebrow } from "@/components/atoms/Eyebrow";
-import { Prose } from "@/components/atoms/Prose";
+import { SectionHead } from "@/components/atoms/SectionHead";
 import { SignatureMark } from "@/components/atoms/SignatureMark";
 import { Reveal } from "@/components/atoms/Reveal";
 
+const FACTS = [
+  { label: "Based in", value: profile.location },
+  { label: "From", value: profile.origin },
+  { label: "Languages", value: profile.languages.join(", ") },
+  { label: "Status", value: profile.status },
+];
+
+// About, set as the journal's one long-form page: a pull quote as the
+// opening line, the narrative in the serif with a drop cap, and a narrow
+// fact column signed off with the signature mark.
 export function About() {
+  const [first, ...rest] = profile.bio;
+
   return (
-    <section id="about" className="grid-editorial relative" style={{ paddingBlock: "var(--section-y)" }}>
-      <Eyebrow as="h2" number="03" className="col-start-1 col-span-2">
-        About
-      </Eyebrow>
+    <section id="about" aria-labelledby="about-heading" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
+      <SectionHead id="about-heading" title="About" note="A short profile" />
 
-      <Prose measure="prose" className="col-start-1 col-span-4 lg:col-start-2 lg:col-span-6">
-        {profile.bio.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
-      </Prose>
-
-      <Reveal className="col-start-1 col-span-4 lg:col-span-8">
-        <blockquote
-          className="font-serif italic text-[length:var(--text-2xl)] text-[var(--fg)]"
-          style={{ textIndent: "-0.5em" }}
+      <blockquote className="col-span-full mt-[var(--spacing-2xl)] lg:col-span-10">
+        <Reveal
+          as="span"
+          variant="mask"
+          className="narrative block text-[length:var(--text-3xl)] italic leading-[1.04] tracking-[-0.02em] text-[var(--fg)] lg:text-[length:var(--text-4xl)]"
         >
           “{profile.pullQuote}”
-        </blockquote>
-      </Reveal>
+        </Reveal>
+      </blockquote>
 
-      <SignatureMark
-        size={220}
-        strokeColor="var(--fg)"
-        className="absolute col-start-10 col-span-3 hidden opacity-[0.06] pointer-events-none lg:block"
-      />
-
-      <div className="col-start-1 col-span-4 mt-[var(--spacing-2xl)] lg:sticky lg:top-32 lg:col-start-9 lg:col-span-4 lg:mt-[var(--offset-step)]">
-        <dl>
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Role
-          </dt>
-          <dd className="mb-[var(--spacing-md)] font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
-            {profile.role}
-          </dd>
-
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Location
-          </dt>
-          <dd className="mb-[var(--spacing-md)] font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
-            {profile.location}
-          </dd>
-
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Origin
-          </dt>
-          <dd className="mb-[var(--spacing-md)] font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
-            {profile.origin}
-          </dd>
-
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Status
-          </dt>
-          <dd className="mb-[var(--spacing-md)] font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
-            {profile.status}
-          </dd>
-
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Languages
-          </dt>
-          <dd className="font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
-            {profile.languages.join(" . ")}
-          </dd>
-        </dl>
+      <div className="narrative col-span-full mt-[var(--spacing-2xl)] space-y-[var(--spacing-lg)] text-[length:var(--text-lede)] text-[var(--fg)] lg:col-start-4 lg:col-span-6 lg:mt-[var(--spacing-3xl)]">
+        <p className="first-letter:float-start first-letter:me-3 first-letter:font-[family-name:var(--font-display)] first-letter:text-[5.2em] first-letter:font-extrabold first-letter:leading-[0.74] first-letter:text-[var(--accent-mark)] first-letter:[font-stretch:62%]">
+          {first}
+        </p>
+        {rest.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
+
+      <aside
+        aria-label="At a glance"
+        className="col-span-full mt-[var(--spacing-2xl)] lg:col-start-11 lg:col-span-2 lg:mt-[var(--spacing-3xl)]"
+      >
+        <dl className="space-y-[var(--spacing-md)] border-t border-[var(--fg)] pt-[var(--spacing-sm)]">
+          {FACTS.map((fact) => (
+            <div key={fact.label}>
+              <dt className="annot text-[var(--fg-muted)]">{fact.label}</dt>
+              <dd className="font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <SignatureMark size={56} strokeColor="var(--accent-mark)" className="mt-[var(--spacing-xl)]" />
+      </aside>
     </section>
   );
 }

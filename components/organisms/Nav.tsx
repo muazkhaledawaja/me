@@ -37,7 +37,7 @@ export function Nav() {
     <header
       className="sticky top-0 z-[var(--z-header)] border-b transition-[height,background-color] duration-[var(--duration-base)] ease-[var(--ease-out-quart)]"
       style={{
-        height: scrolled ? "64px" : "88px",
+        height: scrolled ? "56px" : "72px",
         backgroundColor: scrolled ? "color-mix(in srgb, var(--surface) 92%, transparent)" : "transparent",
         borderColor: scrolled ? "var(--rule)" : "transparent",
         backdropFilter: scrolled ? "blur(8px)" : "none",
@@ -50,9 +50,9 @@ export function Nav() {
         {isCaseStudy ? (
           <Link
             href="/#work"
-            className="font-mono text-[length:var(--text-sm)] text-[var(--fg)] hover:text-[var(--accent)] transition-colors"
+            className="link-rule font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]"
           >
-            ← Work
+            Back to all work
           </Link>
         ) : (
           <Link href="/" aria-label="Home">
@@ -60,17 +60,16 @@ export function Nav() {
           </Link>
         )}
 
-        <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="font-sans text-[length:var(--text-sm)] font-medium tracking-[0.01em] text-[var(--fg)] hover:text-[var(--accent)] transition-colors"
+              className="font-sans text-[length:var(--text-sm)] font-medium text-[var(--fg)] transition-colors hover:text-[var(--accent)]"
             >
               {item.label}
             </Link>
           ))}
-          <StatusDot label="Open to work" />
         </nav>
 
         <button
@@ -102,7 +101,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: duration.fast }}
-            className="fixed inset-x-0 top-16 bottom-0 z-[var(--z-overlay)] flex flex-col justify-center gap-8 bg-[var(--surface)] px-[var(--container-pad)] md:hidden"
+            className="fixed inset-x-0 top-14 bottom-0 z-[var(--z-overlay)] flex flex-col justify-center gap-4 bg-[var(--surface)] px-[var(--container-pad)] md:hidden"
           >
             {navItems.map((item, i) => (
               <m.div
@@ -111,7 +110,7 @@ export function Nav() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: duration.slow, ease: ease.outExpo, delay: i * 0.04 }}
               >
-                <Link href={item.href} className="font-serif text-[length:var(--text-2xl)] text-[var(--fg)]">
+                <Link href={item.href} className="display text-[length:var(--text-display)] text-[var(--fg)]">
                   {item.label}
                 </Link>
               </m.div>

@@ -8,9 +8,11 @@ import { ReadingProgress } from "@/components/organisms/ReadingProgress";
 import { DecisionRecord } from "@/components/molecules/DecisionRecord";
 import { Prose } from "@/components/atoms/Prose";
 import { SadaraArchitecture } from "@/components/diagrams/SadaraArchitecture";
+import { BookingLanes } from "@/components/figures/BookingLanes";
 
 const DIAGRAMS: Partial<Record<CaseStudy["architectureDiagram"], ComponentType>> = {
   sadara: SadaraArchitecture,
+  tarweeda: BookingLanes,
 };
 
 // The fixed section sequence shared by every case study page. See plan §6.
@@ -33,7 +35,11 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
           {cs.problem.map((paragraph, i) => (
             <p
               key={paragraph}
-              className={i === 0 ? "text-[length:var(--text-lede)] text-[var(--fg)]" : undefined}
+              className={
+                i === 0
+                  ? "narrative text-[length:var(--text-xl)] leading-[1.25] text-[var(--fg)]"
+                  : "narrative text-[length:var(--text-lede)] text-[var(--fg)]"
+              }
             >
               {paragraph}
             </p>
@@ -43,7 +49,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
 
       <section id="research" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
         <div className="col-start-1 col-span-4 lg:col-start-2 lg:col-span-5">
-          <h2 className="font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+          <h2 className="border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
             Constraints
           </h2>
           <ol className="mt-[var(--spacing-md)] space-y-[var(--spacing-md)]">
@@ -58,7 +64,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
           </ol>
         </div>
         <div className="col-start-1 col-span-4 mt-[var(--spacing-2xl)] lg:col-start-7 lg:col-span-5 lg:mt-[var(--offset-step)]">
-          <h3 className="font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+          <h3 className="border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
             Research
           </h3>
           <ul className="mt-[var(--spacing-md)] space-y-[var(--spacing-md)] font-sans text-[length:var(--text-sm)] text-[var(--fg-muted)]">
@@ -69,19 +75,21 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
         </div>
       </section>
 
-      <section id="architecture" className="bleed" style={{ paddingBlock: "var(--section-y)" }}>
+      <section id="architecture" style={{ paddingBlock: "var(--section-y)" }}>
         <div className="grid-editorial">
-          <h2 className="col-start-1 col-span-4 lg:col-span-12 font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+          <h2 className="col-start-1 col-span-4 lg:col-span-12 border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
             Architecture
           </h2>
-          <div className="col-start-1 col-span-4 lg:col-span-12 mt-[var(--spacing-xl)]">
-            {Diagram ? <Diagram /> : null}
+          <div className="col-start-1 col-span-4 lg:col-span-12 mt-[var(--spacing-xl)] overflow-x-auto">
+            <div className={cs.architectureDiagram === "sadara" ? "min-w-[46rem]" : "max-w-[44rem]"}>
+              {Diagram ? <Diagram /> : null}
+            </div>
           </div>
         </div>
       </section>
 
       <section id="decisions" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
-        <h2 className="col-start-1 col-span-4 lg:col-span-12 mb-[var(--spacing-xl)] font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+        <h2 className="col-start-1 col-span-4 lg:col-span-12 mb-[var(--spacing-xl)] border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
           Technical decisions
         </h2>
         {cs.decisions.map((decision, i) => (
@@ -90,7 +98,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
       </section>
 
       <section id="challenges" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
-        <h2 className="col-start-1 col-span-4 lg:col-span-12 font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+        <h2 className="col-start-1 col-span-4 lg:col-span-12 border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
           Challenges & tradeoffs
         </h2>
         <div className="col-start-1 col-span-4 lg:col-start-2 lg:col-span-10 mt-[var(--spacing-xl)]">
@@ -102,7 +110,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
               }`}
             >
               <div>
-                <p className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+                <p className="annot text-[var(--fg-muted)]">
                   Challenge
                 </p>
                 <p className="mt-[var(--spacing-xs)] font-sans text-[length:var(--text-sm)] text-[var(--fg)]">
@@ -110,7 +118,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
                 </p>
               </div>
               <div>
-                <p className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+                <p className="annot text-[var(--fg-muted)]">
                   What we traded
                 </p>
                 <p className="mt-[var(--spacing-xs)] font-sans text-[length:var(--text-sm)] text-[var(--fg-muted)]">
@@ -123,7 +131,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
       </section>
 
       <section id="results" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
-        <h2 className="col-start-1 col-span-4 lg:col-span-12 font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+        <h2 className="col-start-1 col-span-4 lg:col-span-12 border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
           Results
         </h2>
         <div className="col-start-1 col-span-4 lg:col-span-10 mt-[var(--spacing-xl)] overflow-x-auto">
@@ -131,10 +139,10 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
             <caption className="sr-only">{`Results for ${project.title}`}</caption>
             <thead>
               <tr className="border-b border-[var(--rule)]">
-                <th scope="col" className="py-[var(--spacing-sm)] font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+                <th scope="col" className="py-[var(--spacing-sm)] annot text-[var(--fg-muted)]">
                   Metric
                 </th>
-                <th scope="col" className="py-[var(--spacing-sm)] font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+                <th scope="col" className="py-[var(--spacing-sm)] annot text-[var(--fg-muted)]">
                   Value
                 </th>
               </tr>
@@ -156,7 +164,7 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
       </section>
 
       <section id="lessons" className="grid-editorial" style={{ paddingBlock: "var(--section-y)" }}>
-        <h2 className="col-start-1 col-span-4 lg:col-start-3 lg:col-span-7 font-mono text-[length:var(--text-label)] uppercase tracking-[0.24em] text-[var(--fg-muted)]">
+        <h2 className="col-start-1 col-span-4 lg:col-start-3 lg:col-span-7 border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
           Lessons learned
         </h2>
         <ol className="col-start-1 col-span-4 lg:col-start-3 lg:col-span-7 mt-[var(--spacing-md)] space-y-[var(--spacing-lg)]">
@@ -174,13 +182,13 @@ export function CaseStudyTemplate({ project }: { project: Project }) {
       {next ? (
         <Link
           href={`/work/${next.slug}`}
-          className="group grid-editorial bleed block border-t border-[var(--rule)] transition-colors hover:bg-[var(--surface-2)]"
+          className="group grid-editorial block transition-colors"
           style={{ paddingBlock: "var(--spacing-3xl)" }}
         >
-          <p className="col-start-1 col-span-4 lg:col-span-12 font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+          <p className="col-start-1 col-span-4 lg:col-span-12 border-t border-[var(--fg)] pt-[var(--spacing-sm)] font-sans text-[length:var(--text-sm)] font-semibold text-[var(--fg)]">
             Next project
           </p>
-          <p className="col-start-1 col-span-4 lg:col-span-12 mt-[var(--spacing-xs)] font-serif text-[length:var(--text-3xl)] text-[var(--fg)] transition-transform group-hover:translate-x-2">
+          <p className="display col-start-1 col-span-4 lg:col-span-12 mt-[var(--spacing-md)] text-[length:clamp(3.5rem,11vw,11rem)] text-[var(--fg)] transition-colors duration-[var(--duration-base)] group-hover:text-[var(--accent)]">
             {next.title}
           </p>
         </Link>

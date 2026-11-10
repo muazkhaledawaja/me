@@ -7,18 +7,22 @@ import type { Decision } from "@/content/types";
 export function DecisionRecord({ decision, index }: { decision: Decision; index: number }) {
   return (
     <>
-      <span className="col-start-1 col-span-1 hidden font-mono text-[length:var(--text-sm)] tabular-nums text-[var(--fg-faint)] lg:block">
+      <span className="col-start-1 col-span-1 annot hidden tabular-nums text-[var(--accent)] lg:block">
         {String(index + 1).padStart(2, "0")}
       </span>
       <dl className="col-start-1 col-span-4 lg:col-start-2 lg:col-span-10 grid gap-[var(--spacing-sm)] mb-[var(--spacing-2xl)]">
+        <div className="mb-[var(--spacing-xs)]">
+          <dt className="sr-only">Decision</dt>
+          <dd className="narrative text-[length:var(--text-xl)] leading-[1.15] text-[var(--fg)]">{decision.title}</dd>
+        </div>
         <div>
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+          <dt className="annot text-[var(--fg-muted)]">
             Context
           </dt>
           <dd className="font-sans text-[length:var(--text-sm)] text-[var(--fg)]">{decision.context}</dd>
         </div>
         <div>
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+          <dt className="annot text-[var(--fg-muted)]">
             Options considered
           </dt>
           <dd>
@@ -30,13 +34,13 @@ export function DecisionRecord({ decision, index }: { decision: Decision; index:
           </dd>
         </div>
         <div>
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
-            Decision
+          <dt className="annot text-[var(--fg-muted)]">
+            What we chose
           </dt>
           <dd className="font-sans text-[length:var(--text-sm)] text-[var(--fg)]">{decision.decision}</dd>
         </div>
         <div>
-          <dt className="font-mono text-[length:var(--text-xs)] uppercase tracking-[0.14em] text-[var(--fg-muted)]">
+          <dt className="annot text-[var(--fg-muted)]">
             Consequence
           </dt>
           <dd className="font-sans text-[length:var(--text-sm)] text-[var(--fg-muted)]">{decision.consequence}</dd>

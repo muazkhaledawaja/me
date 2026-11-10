@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: siteUrl, priority: 1 },
     { url: `${siteUrl}/work`, priority: 0.8 },
-    { url: `${siteUrl}/colophon`, priority: 0.3 },
   ];
 
   const caseStudyRoutes: MetadataRoute.Sitemap = allSlugs().map((slug) => ({
